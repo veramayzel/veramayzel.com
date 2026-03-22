@@ -26,6 +26,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
       font-weight: 300;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -312,6 +313,18 @@
     }
     .project-card:hover .project-name { color: rgba(0,0,0,0.4); }
     .project-desc { font-size: 13px; color: var(--dim); font-weight: 300; }
+    /* Body hover: darker + 20% bigger */
+    .project-name, .pub-title, .cert-name, .blog-card-title, .cv-title, .media-item-title {
+      transition: transform 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+    .project-card:hover .project-name,
+    .pub-item:hover .pub-title,
+    .cert-card:hover .cert-name,
+    .blog-card:hover .blog-card-title {
+      transform: scale(1.2);
+      color: #000;
+    }
     .project-arrow { font-size: 20px; color: var(--dimmer); transition: transform 0.25s, color 0.2s; }
     .project-card:hover .project-arrow { transform: translate(4px,-4px); color: var(--text); }
 
