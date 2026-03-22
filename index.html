@@ -236,6 +236,7 @@
       border-bottom: 1px solid rgba(0,0,0,0.3); transition: border-color 0.2s;
     }
     .hero-bio a:hover { border-color: #000; }
+    .hero-role-tags { display: flex; flex-direction: row; gap: 8px; margin-top: 20px; }
     .hero-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
     .hero-tag {
       font-family: 'Geist Mono', monospace;
@@ -780,7 +781,6 @@
 
   <section class="hero" style="border-top:none; padding-top:0; background:transparent;">
 
-    <div class="hero-eyebrow">Lawyer · Writer · Builder</div>
 
     <div class="hero-grid">
       <div class="hero-img-wrap">
@@ -793,6 +793,11 @@
           <p class="hero-bio">
             Ex-Big Law lawyer exploring the future of legal tech. I write about AI ethics, technology, and the things I'm building along the way.
           </p>
+          <div class="hero-role-tags">
+            <span class="hero-tag">Lawyer</span>
+            <span class="hero-tag">Writer</span>
+            <span class="hero-tag">Builder</span>
+          </div>
         </div>
       </div>
     </div>
