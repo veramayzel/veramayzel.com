@@ -153,6 +153,17 @@
     /* hero — right only (VERA MAYZEL is on left) */
     .e1  { top:  30vh;  right: 4vw;   font-size: 38px; animation-duration:  6s; animation-delay:  0s;  }
     .e2  { top:  52vh;  right: 8vw;   font-size: 32px; animation-duration:  5s; animation-delay: -2s; }
+    /* hero-only bonus emojis — edges only, avoid image/text centre */
+    .eh1 { top:  6vh;   left:  6vw;   font-size: 34px; animation-duration:  7s; animation-delay: -1s; }
+    .eh2 { top: 18vh;   left:  4vw;   font-size: 28px; animation-duration:  5s; animation-delay: -3s; }
+    .eh3 { top: 42vh;   left:  3vw;   font-size: 32px; animation-duration:  6s; animation-delay: -5s; }
+    .eh4 { top: 64vh;   left:  5vw;   font-size: 30px; animation-duration:  8s; animation-delay: -2s; }
+    .eh5 { top: 80vh;   left:  7vw;   font-size: 36px; animation-duration:  5s; animation-delay: -4s; }
+    .eh6 { top: 91vh;   left: 22vw;   font-size: 28px; animation-duration:  7s; animation-delay: -1s; }
+    .eh7 { top: 12vh;   right:22vw;   font-size: 30px; animation-duration:  6s; animation-delay: -3s; }
+    .eh8 { top: 74vh;   right:18vw;   font-size: 32px; animation-duration:  5s; animation-delay: -5s; }
+    .eh9 { top: 86vh;   right:14vw;   font-size: 28px; animation-duration:  7s; animation-delay: -2s; }
+    .eh10{ top: 96vh;   right:24vw;   font-size: 34px; animation-duration:  6s; animation-delay: -4s; }
     /* below hero — alternate sides, never same side within 22vh of another element */
     .e3  { top: 122vh;  right: 4vw;   font-size: 34px; animation-duration:  7s; animation-delay: -1s; }
     .e4  { top: 140vh;  left:  3vw;   font-size: 36px; animation-duration:  6s; animation-delay: -4s; }
@@ -752,6 +763,17 @@
       <path d="M50 10 C65 8 80 20 82 36 C84 52 76 68 62 75 C48 82 30 78 20 65 C10 52 14 32 26 22 C34 15 42 11 50 10Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
     </svg>
 
+    <!-- Hero bonus emojis -->
+    <span class="deco-emoji eh1">🌙</span>
+    <span class="deco-emoji eh2">✨</span>
+    <span class="deco-emoji eh3">🪄</span>
+    <span class="deco-emoji eh4">🔮</span>
+    <span class="deco-emoji eh5">🎯</span>
+    <span class="deco-emoji eh6">🧲</span>
+    <span class="deco-emoji eh7">🪐</span>
+    <span class="deco-emoji eh8">🎨</span>
+    <span class="deco-emoji eh9">🦄</span>
+    <span class="deco-emoji eh10">🎪</span>
     <!-- Apple emoji floaters -->
     <span class="deco-emoji e1">👾</span>
     <span class="deco-emoji e2">🎧</span>
@@ -1302,20 +1324,29 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 
 <script>
-  // Emoji repel — floats away from cursor, springs back on leave
-  document.querySelectorAll('.deco-emoji').forEach(el => {
-    el.addEventListener('mousemove', e => {
+  // Emoji repel — proximity-based, reacts when cursor gets close
+  const allEmojis = Array.from(document.querySelectorAll('.deco-emoji'));
+  const REPEL_RADIUS = 130;
+  const PUSH_STRENGTH = 65;
+
+  document.addEventListener('mousemove', e => {
+    allEmojis.forEach(el => {
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const push = 55;
-      el.style.transform = `translate(${-(dx / dist) * push}px, ${-(dy / dist) * push}px) scale(1.15)`;
-    });
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
+      if (dist < REPEL_RADIUS) {
+        const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
+        const pushX = -(dx / dist) * PUSH_STRENGTH * force;
+        const pushY = -(dy / dist) * PUSH_STRENGTH * force;
+        el.style.transform = `translate(${pushX}px, ${pushY}px) scale(${1 + force * 0.18})`;
+        el.style.opacity = '1';
+      } else {
+        el.style.transform = '';
+        el.style.opacity = '';
+      }
     });
   });
 </script>
