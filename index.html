@@ -104,8 +104,13 @@
     .hero {
       min-height: 80vh;
       display: flex; flex-direction: column; justify-content: center;
-      padding: 80px 48px 56px;
+      padding: 80px 0 56px 48px;
       position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      align-items: stretch;
     }
 
     /* ── Glass decorations ── */
@@ -238,20 +243,17 @@
       background: rgba(255,255,255,0.5); backdrop-filter: blur(4px);
     }
 
-    /* Hero top row: name + image side by side */
-    .hero-top {
+    /* Hero left column: name + bio stacked */
+    .hero-left {
       display: flex;
-      align-items: flex-end;
-      gap: 40px;
-      margin-bottom: 36px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-right: 40px;
     }
 
     /* Image wrap: overflow visible so particles escape the box edge */
     .hero-img-wrap {
       position: relative;
-      flex-shrink: 0;
-      width: 200px;
-      height: 250px;
       overflow: visible;
     }
     #imgCanvas {
@@ -272,10 +274,8 @@
 
     /* Mobile: stack image below name */
     @media (max-width: 768px) {
-      .hero-top {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 28px;
+      .hero-grid {
+        grid-template-columns: 1fr;
       }
       .hero-img-wrap {
         width: 100%;
@@ -779,20 +779,21 @@
 
     <div class="hero-eyebrow">Lawyer · Writer · Builder</div>
 
-    <div class="hero-top">
-      <div class="hero-name">Vera<br/>Mayzel</div>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-name">Vera<br/>Mayzel</div>
+        <div class="hero-bottom">
+          <p class="hero-bio">
+            Ex-Big Law lawyer exploring the future of legal tech. I write about AI ethics, technology, and the things I'm building along the way.
+          </p>
+          <div class="hero-tags">
+            <span class="hero-tag">London, UK</span>
+          </div>
+        </div>
+      </div>
       <div class="hero-img-wrap">
         <canvas id="imgCanvas"></canvas>
         <div class="img-hint" id="imgHint">hover me</div>
-      </div>
-    </div>
-
-    <div class="hero-bottom">
-      <p class="hero-bio">
-        Ex-Big Law lawyer exploring the future of legal tech. I write about AI ethics, technology, and the things I'm building along the way.
-      </p>
-      <div class="hero-tags">
-        <span class="hero-tag">London, UK</span>
       </div>
     </div>
 
