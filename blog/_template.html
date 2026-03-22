@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POST TITLE — Vera Mayzel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f4f2ee; --text: #000; --line: rgba(0,0,0,0.12); --dim: rgba(0,0,0,0.45); }
+    body { background: var(--bg); color: var(--text); font-family: 'Georgia', serif; font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; max-width: 680px; margin: 0 auto; padding: 80px 32px 120px; }
+    .back { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); text-decoration: none; margin-bottom: 64px; transition: color 0.2s; }
+    .back:hover { color: #000; }
+    .post-meta { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.15; margin-bottom: 40px; letter-spacing: -0.015em; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin: 48px 0 16px; }
+    p { margin-bottom: 1.4em; }
+    hr { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+    em { font-style: italic; }
+    .like-section { display: flex; align-items: center; gap: 16px; margin: 48px 0 32px; }
+    .like-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--line); padding: 10px 20px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 14px; transition: background 0.2s, border-color 0.2s; }
+    .like-btn:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.3); }
+    .like-btn.liked { background: #000; color: #fff; border-color: #000; }
+    .like-form-wrap { display: none; margin-top: 16px; padding: 24px; border: 1px solid var(--line); }
+    .like-form-wrap.open { display: block; }
+    .like-form-title { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .form-field label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+    .form-field input, .form-field textarea { background: transparent; border: 1px solid var(--line); padding: 12px 14px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s; resize: none; width: 100%; }
+    .form-field input:focus, .form-field textarea:focus { border-color: rgba(0,0,0,0.4); }
+    .form-submit { display: inline-block; padding: 12px 28px; background: #000; color: #fff; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; border: none; cursor: pointer; transition: opacity 0.2s; }
+    .form-submit:hover { opacity: 0.75; }
+    .form-note { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--dim); margin-top: 10px; letter-spacing: 0.06em; }
+    .section-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 24px; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } body { padding: 60px 20px 80px; } }
+  </style>
+</head>
+<body>
+
+  <a class="back" href="../index.html">← Vera Mayzel</a>
+
+  <!-- CHANGE: date, category -->
+  <div class="post-meta">DD MMM YYYY &nbsp;·&nbsp; Blog</div>
+  <!-- CHANGE: title -->
+  <h1>Post Title</h1>
+
+  <!-- WRITE YOUR POST CONTENT HERE -->
+  <p>First paragraph.</p>
+
+  <h2>Optional subheading</h2>
+
+  <p>More content…</p>
+
+  <hr />
+
+  <!-- Like button — CHANGE: post title in hidden inputs & subject line -->
+  <div class="like-section">
+    <button class="like-btn" id="likeBtn" onclick="toggleLikeForm()">
+      <span id="likeHeart">♡</span>
+      <span id="likeLabel">Like this post</span>
+    </button>
+  </div>
+  <div class="like-form-wrap" id="likeFormWrap">
+    <div class="like-form-title">Leave your name &amp; email to like this post</div>
+    <form action="https://formspree.io/f/xpqyevek" method="POST" onsubmit="onLikeSubmit(event)">
+      <input type="hidden" name="_subject" value="Like — POST TITLE" />
+      <input type="hidden" name="post" value="POST TITLE" />
+      <input type="hidden" name="type" value="like" />
+      <div class="form-row">
+        <div class="form-field"><label>Name</label><input type="text" name="name" placeholder="Your name" required /></div>
+        <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required /></div>
+      </div>
+      <button type="submit" class="form-submit">Confirm like</button>
+    </form>
+  </div>
+
+  <hr />
+
+  <!-- Comments — CHANGE: post title in hidden inputs & subject line -->
+  <p class="section-label">Comments</p>
+  <form action="https://formspree.io/f/xpqyevek" method="POST" onsubmit="onCommentSubmit(event)">
+    <input type="hidden" name="_subject" value="Comment — POST TITLE" />
+    <input type="hidden" name="post" value="POST TITLE" />
+    <input type="hidden" name="type" value="comment" />
+    <div class="form-row">
+      <div class="form-field"><label for="c-name">Name</label><input type="text" id="c-name" name="name" placeholder="Your name" required /></div>
+      <div class="form-field"><label for="c-email">Email</label><input type="email" id="c-email" name="email" placeholder="your@email.com" required /></div>
+    </div>
+    <div class="form-field">
+      <label for="c-msg">Comment</label>
+      <textarea id="c-msg" name="comment" rows="4" placeholder="Share a thought…" required></textarea>
+    </div>
+    <button type="submit" class="form-submit">Post comment</button>
+    <p class="form-note">Your email won't be published.</p>
+  </form>
+
+  <!-- TO ADD THIS POST TO THE HOMEPAGE:
+    Add a .blog-card block inside the .blog-grid in index.html:
+
+    <a class="blog-card" href="blog/your-post-filename.html">
+      <div class="blog-card-date">DD MMM YYYY</div>
+      <div class="blog-card-title">Your Post Title</div>
+      <div class="blog-card-excerpt">One or two sentence summary.</div>
+      <div class="blog-card-arrow">Read →</div>
+    </a>
+  -->
+
+  <script>
+    function toggleLikeForm() { document.getElementById('likeFormWrap').classList.toggle('open'); }
+    function onLikeSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(() => {
+          document.getElementById('likeFormWrap').classList.remove('open');
+          const btn = document.getElementById('likeBtn');
+          btn.classList.add('liked');
+          document.getElementById('likeHeart').textContent = '♥';
+          document.getElementById('likeLabel').textContent = 'Liked';
+          btn.disabled = true;
+        });
+    }
+    function onCommentSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(() => { form.innerHTML = '<p style="font-family:Space Grotesk,sans-serif;font-size:14px;padding:16px 0">Thank you — your comment has been received.</p>'; });
+    }
+  </script>
+
+</body>
+</html>
