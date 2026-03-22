@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vera Mayzel</title>
+  <meta name="description" content="Vera Mayzel – Lawyer, writer, and builder." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f5;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #2a2a2a;
+      --border: #e0ddd6;
+      --hover-bg: #f0ede6;
+      --link: #1a1a1a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    /* Pixelation photo */
+    .photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .photo-wrap img,
+    .photo-wrap canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .photo-wrap canvas {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      image-rendering: pixelated;
+    }
+
+    .photo-wrap:hover canvas { opacity: 1; }
+
+    .hero-text { flex: 1; padding-top: 4px; }
+
+    .hero-text h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero-text .tagline {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #444;
+      max-width: 560px;
+    }
+
+    /* ── Social strip ── */
+    .social-strip {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .social-btn:hover {
+      background: var(--hover-bg);
+      border-color: #ccc;
+    }
+
+    .social-btn svg { flex-shrink: 0; }
+
+    /* ── Divider ── */
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    /* ── Projects ── */
+    #projects { padding-bottom: 8px; }
+
+    .project-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+
+    .project-card:last-child { border-bottom: 1px solid var(--border); }
+
+    .project-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .project-info { flex: 1; }
+
+    .project-name {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .project-arrow {
+      color: var(--muted);
+      align-self: center;
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+
+    .project-card:hover .project-arrow { transform: translateX(3px); }
+
+    /* ── Publications ── */
+    #publications { padding-bottom: 8px; }
+
+    .pub-item {
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .pub-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .pub-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .pub-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .pub-link {
+      font-size: 12px;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+
+    .pub-link:hover { border-color: var(--text); }
+
+    /* ── Certifications ── */
+    #certifications { padding-bottom: 8px; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .cert-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+      transition: box-shadow 0.2s;
+    }
+
+    .cert-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+    .cert-provider {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .cert-name {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .cert-detail {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .cert-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 8px;
+      background: #f0ede6;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* ── CV ── */
+    #cv { padding-bottom: 8px; }
+
+    .cv-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .cv-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cv-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--text);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .cv-btn:hover { opacity: 0.8; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 48px 0 32px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 520px) {
+      .hero-top { flex-direction: column; align-items: center; text-align: center; }
+      .hero-text h1 { font-size: 26px; }
+      .social-strip { justify-content: center; }
+      nav .container { gap: 16px; }
+      .nav-links { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <a class="nav-name" href="#">Vera Mayzel</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Writing</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#cv">CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <!-- Profile photo: replace src with your actual photo path -->
+        <div class="photo-wrap" id="photoWrap">
+          <img id="profileImg" src="photo.jpg" alt="Vera Mayzel"
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22120%22 height=%22120%22 fill=%22%23e8e4dc%22/%3E%3Ctext x=%2260%22 y=%2272%22 text-anchor=%22middle%22 font-family=%22serif%22 font-size=%2240%22 fill=%22%23999%22%3EV%3C/text%3E%3C/svg%3E'" />
+          <canvas id="pixelCanvas"></canvas>
+        </div>
+
+        <div class="hero-text">
+          <h1>Vera Mayzel</h1>
+          <p class="tagline">
+            Lawyer &middot; Writer &middot; Builder<br />
+            London, UK
+          </p>
+        </div>
+      </div>
+
+      <p class="hero-bio">
+        Trainee solicitor with a focus on financial and commercial law. I write about law, technology, and the intersections between them. I also build things — most recently <a href="https://www.letslockin.app" target="_blank" style="color:inherit;border-bottom:1px solid #ccc">letslockin.app</a>.
+      </p>
+
+      <!-- Social links — fill in your actual URLs -->
+      <div class="social-strip">
+        <a class="social-btn" href="https://www.linkedin.com/in/veramayzel" target="_blank" rel="noopener">
+          <!-- LinkedIn icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="social-btn" href="https://linktr.ee/veramayzel" target="_blank" rel="noopener">
+          <!-- Linktree icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.953 15.066c-.08.163-.08.324-.08.486.08.517.528.897 1.052.818l2.953-.486v4.576c0 .576.48 1.054 1.054 1.054h.161c.576 0 1.054-.48 1.054-1.054v-4.576l2.953.486c.528.08.976-.3 1.052-.818 0-.161 0-.323-.08-.486l-4.168-8.576a1.058 1.058 0 0 0-1.924 0L7.953 15.066zM12 2.08a.4.4 0 0 0-.4.4v2.08h-.6a.4.4 0 0 0 0 .8h.6v.32a.4.4 0 0 0 .8 0V5.36h.6a.4.4 0 0 0 0-.8h-.6V2.48a.4.4 0 0 0-.4-.4z"/></svg>
+          Linktree
+        </a>
+        <a class="social-btn" href="https://www.instagram.com/veramayzel" target="_blank" rel="noopener">
+          <!-- Instagram icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin:0" />
+
+  <!-- ── Projects ── -->
+  <section id="projects" style="padding: 48px 0 0">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+
+      <a class="project-card" href="https://www.letslockin.app" target="_blank" rel="noopener">
+        <div class="project-icon">🔒</div>
+        <div class="project-info">
+          <div class="project-name">Let's Lock In</div>
+          <div class="project-desc">A focus and productivity app built for deep work sessions.</div>
+        </div>
+        <span class="project-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Publications ── -->
+  <section id="publications" style="padding-bottom: 0">
+    <div class="container">
+      <h2 class="section-title">Writing & Publications</h2>
+
+      <div class="pub-item">
+        <div class="pub-title">Case Analysis – October 2024</div>
+        <div class="pub-meta">Journal of International Banking and Financial Law (JIBFL) &middot; October 2024</div>
+        <a class="pub-link" href="https://www.jibfl.co.uk/articles/case-analysis-october-2024" target="_blank" rel="noopener">Read on JIBFL →</a>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Publication on Lexology</div>
+        <div class="pub-meta">Lexology &middot; 2024</div>
+        <a class="pub-link" href="https://www.lexology.com/library/detail.aspx?g=6f68ac77-5344-4ab8-b707-638c6165ed7e" target="_blank" rel="noopener">Read on Lexology →</a>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Publication on Lexology</div>
+        <div class="pub-meta">Lexology &middot; 2024</div>
+        <a class="pub-link" href="https://www.lexology.com/library/detail.aspx?g=f2ef3969-2f64-43e7-82ea-c9834cdfd612" target="_blank" rel="noopener">Read on Lexology →</a>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Publication on Lexology</div>
+        <div class="pub-meta">Lexology &middot; 2024</div>
+        <a class="pub-link" href="https://www.lexology.com/library/detail.aspx?g=b797611d-0248-4514-88db-f994706fd753" target="_blank" rel="noopener">Read on Lexology →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Certifications ── -->
+  <section id="certifications">
+    <div class="container">
+      <h2 class="section-title">Licences &amp; Certifications</h2>
+      <div class="cert-grid">
+
+        <div class="cert-card">
+          <div class="cert-provider">BPP Professional Development</div>
+          <div class="cert-name">Client Care &amp; Professional Standards</div>
+          <div class="cert-detail">20–21 June 2024 · Online Live</div>
+          <span class="cert-badge">12 Hours</span>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-provider">BPP Professional Development</div>
+          <div class="cert-name">Advocacy &amp; Communication Skills</div>
+          <div class="cert-detail">15–17 July 2024 · Online Live</div>
+          <span class="cert-badge">18 Hours</span>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-provider">BPP Professional Development</div>
+          <div class="cert-name">Financial &amp; Business Skills</div>
+          <div class="cert-detail">14–16 August 2024 · Online Live</div>
+          <span class="cert-badge">18 Hours</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── CV ── -->
+  <section id="cv">
+    <div class="container">
+      <h2 class="section-title">CV</h2>
+      <div class="cv-row">
+        <div>
+          <div class="cv-label">Curriculum Vitae</div>
+          <div class="cv-sub">Download my full résumé as a PDF</div>
+        </div>
+        <!-- Replace href with actual CV path once uploaded -->
+        <a class="cv-btn" href="cv.pdf" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <p>© 2024 Vera Mayzel</p>
+  </div>
+</footer>
+
+<!-- ── Pixelation script ── -->
+<script>
+  (function () {
+    const wrap = document.getElementById('photoWrap');
+    const img = document.getElementById('profileImg');
+    const canvas = document.getElementById('pixelCanvas');
+    const ctx = canvas.getContext('2d');
+    const PIXEL_SIZE = 8; // adjust for coarser/finer pixelation
+
+    function drawPixelated() {
+      const w = img.naturalWidth || 120;
+      const h = img.naturalHeight || 120;
+      canvas.width = w;
+      canvas.height = h;
+
+      // Draw tiny then scale up
+      const small = Math.max(1, Math.floor(w / PIXEL_SIZE));
+      const smallH = Math.max(1, Math.floor(h / PIXEL_SIZE));
+
+      // Disable smoothing for pixelated look
+      ctx.imageSmoothingEnabled = false;
+
+      // Draw image at tiny size then blow it up
+      const offscreen = document.createElement('canvas');
+      offscreen.width = small;
+      offscreen.height = smallH;
+      const offCtx = offscreen.getContext('2d');
+      offCtx.drawImage(img, 0, 0, small, smallH);
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(offscreen, 0, 0, w, h);
+    }
+
+    function init() {
+      if (img.complete && img.naturalWidth) {
+        drawPixelated();
+      } else {
+        img.addEventListener('load', drawPixelated);
+      }
+    }
+
+    init();
+  })();
+</script>
+
+</body>
+</html>
