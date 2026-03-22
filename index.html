@@ -109,7 +109,7 @@
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: max-content 280px;
+      grid-template-columns: 280px max-content;
       align-items: center;
       gap: 0 24px;
     }
@@ -783,6 +783,10 @@
     <div class="hero-eyebrow">Lawyer · Writer · Builder</div>
 
     <div class="hero-grid">
+      <div class="hero-img-wrap">
+        <canvas id="imgCanvas"></canvas>
+        <div class="img-hint" id="imgHint">hover me</div>
+      </div>
       <div class="hero-left">
         <div class="hero-name">Vera<br/>Mayzel</div>
         <div class="hero-bottom">
@@ -790,10 +794,6 @@
             Ex-Big Law lawyer exploring the future of legal tech. I write about AI ethics, technology, and the things I'm building along the way.
           </p>
         </div>
-      </div>
-      <div class="hero-img-wrap">
-        <canvas id="imgCanvas"></canvas>
-        <div class="img-hint" id="imgHint">hover me</div>
       </div>
     </div>
 
