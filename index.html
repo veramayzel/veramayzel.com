@@ -978,8 +978,15 @@
           Subscribe on Substack ↗
         </a>
       </div>
-      <div id="substack-posts" class="blog-grid reveal" style="margin-top:24px;">
-        <div style="padding:32px 28px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(0,0,0,0.35);">Loading posts…</div>
+      <div class="blog-grid reveal" style="margin-top:24px;">
+        <a class="blog-card" href="https://veramayzel.substack.com/p/i-built-an-ai-agent-to-read-my-email" target="_blank" rel="noopener">
+          <div class="blog-card-date">31 Mar 2026</div>
+          <div class="blog-card-title">I Built an AI Agent to Read My Email So I Can Touch Grass Instead</div>
+          <div class="blog-card-excerpt">How my AI Agent experiment revealed a whole lot about systems thinking…</div>
+          <div class="blog-card-arrow">Read →</div>
+        </a>
+      </div>
+      <div id="substack-posts" class="blog-grid reveal" style="margin-top:1px;">
       </div>
     </div>
   </section>
@@ -1197,11 +1204,9 @@
   fetch(API)
     .then(r => r.json())
     .then(data => {
-      if (!data.items || !data.items.length) {
-        container.innerHTML = '<div style="padding:32px 28px;font-family:\'Geist Mono\',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(0,0,0,0.35);">No posts yet — check back soon.</div>';
-        return;
-      }
-      container.innerHTML = data.items.map(item => {
+      if (!data.items || !data.items.length) return;
+      const STATIC_SLUGS = ['i-built-an-ai-agent-to-read-my-email'];
+      container.innerHTML = data.items.filter(item => !STATIC_SLUGS.some(s => item.link.includes(s))).map(item => {
         const date = new Date(item.pubDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
         const excerpt = item.description.replace(/<[^>]+>/g,'').slice(0, 120).trim() + '…';
         return `<a class="blog-card" href="${item.link}" target="_blank" rel="noopener">
@@ -1212,9 +1217,7 @@
         </a>`;
       }).join('');
     })
-    .catch(() => {
-      container.innerHTML = '<div style="padding:32px 28px;font-family:\'Geist Mono\',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(0,0,0,0.35);">Could not load posts. <a href="https://veramayzel.substack.com" target="_blank" rel="noopener" style="color:#000;">Visit Substack ↗</a></div>';
-    });
+    .catch(() => {});
 })();
 
 // ── Cursor ──
